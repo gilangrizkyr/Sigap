@@ -1,0 +1,20 @@
+version: '3.8'
+ 
+services:
+ 
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: Sigap
+    restart: unless-stopped
+    ports:
+      - "9007:8080"
+    volumes:
+      - .:/app
+      - /app/vendor
+      - ./Caddyfile:/etc/caddy/Caddyfile
+    env_file:
+      - .env
+    extra_hosts:
+      - "host.docker.internal:host-gateway"
